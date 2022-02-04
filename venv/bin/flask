@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/home/superiorkid/belajar/flask/coding chllenge/img_to_pixel/venv/bin/python" "$0" "$@"
-' '''
+#!/home/superiorkid/Project/torrent-to-magnet/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

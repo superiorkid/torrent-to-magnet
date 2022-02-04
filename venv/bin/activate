@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/superiorkid/belajar/flask/coding chllenge/img_to_pixel/venv"
+VIRTUAL_ENV="/home/superiorkid/Project/torrent-to-magnet/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

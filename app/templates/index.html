@@ -1,29 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-    <form method="POST" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        {{ form.photo }}
-        
-        {% for error in form.photo.errors %}
-            <span style="color:red;">{{ error }}</span> 
-        {% endfor %}
+{% block content %}
 
-        {{ form.submit }}
-    <form>
-    <br>
-    
-    {% if file_url %}
-        <img src="{{ file_url }}">
-    {% endif %}
-        
-    
-</body>
-</html>
+{{ dropzone.create(action='make_torrent_to_magnet') }}
+{{ dropzone.config() }}
+
+
+<p>
+  {{ magnet }}
+</p>
+  
+{% endblock content %}
+  
