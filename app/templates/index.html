@@ -2,13 +2,32 @@
 
 {% block content %}
 
-{{ dropzone.create(action='make_torrent_to_magnet') }}
-{{ dropzone.config() }}
-
+<title>Python Flask Multiple Files Upload Example</title>
+<h2>Select file to upload</h2>
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+<form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<input type="file" name="file" autocomplete="off" required>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="Submit">
+	</p>
+</form>
 
 <p>
-  {{ magnet }}
+  {{magnet}}
 </p>
-  
 {% endblock content %}
   
