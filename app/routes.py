@@ -5,6 +5,8 @@ import hashlib
 import base64
 from werkzeug.utils import secure_filename
 import os
+import time
+import shutil
 
 ALLOWED_EXTENSIONS = set(['torrent'])
 
@@ -23,16 +25,21 @@ def upload_file():
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
+        
+        
         if file.filename == '':
             flash('No file selected for uploading')
             return redirect(request.url)
 
         if file and allowed_file(file.filename):
+            
+            there_days_ago = time.time() - (3 * 86400)
+            
             filename = secure_filename(file.filename)
-            file_dest = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(file_dest)
+            root = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(root)
 
-            metadata = bencodepy.decode_from_file(file_dest)
+            metadata = bencodepy.decode_from_file(root)
             subj = metadata[b'info']
             hashcontents = bencodepy.encode(subj)
             digest = hashlib.sha1(hashcontents).digest()
@@ -40,6 +47,23 @@ def upload_file():
             magnet = 'magnet:?' + 'xt=urn:btih:' + b32hash + '&dn=' + metadata[b'info'][b'name'].decode() + '&tr=' + metadata[b'announce'].decode() + '&xl=' + str(metadata[b'info'][b'piece length'])
 
             flash('File successfully converted')
+            
+            # delete file older than 3 days
+            for i in os.listdir(app.config['UPLOAD_FOLDER']):
+                path = os.path.join(app.config['UPLOAD_FOLDER'], i)
+                
+                if os.stat(path).st_mtime <= there_days_ago:
+                    if os.path.isfile(path):
+                        try:
+                            os.remove(path)
+                        except:
+                            None
+                    else:
+                        try:
+                            shutil.rmtree(path)
+                        except:
+                            None
+            
             return render_template('index.html', magnet=magnet, filename=file.filename)
         else:
             flash('Allowed file types are .torrent only')
