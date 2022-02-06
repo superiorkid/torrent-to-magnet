@@ -42,6 +42,6 @@ def upload_file():
             flash('File successfully converted')
             return render_template('index.html', magnet=magnet, filename=file.filename)
         else:
-            flash('Allowed file types are torrent only')
+            flash('Allowed file types are .torrent only')
             return redirect(request.url)
 
