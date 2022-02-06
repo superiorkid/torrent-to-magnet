@@ -10,6 +10,9 @@
   {{ bootstrap.load_css() }}
 </head>
 <body>
+  <div class="jumbotron jumbotron-fluid text-sm-center p-a-2">
+    <h1 class="display-5 p-a-2 m-t-2">view on <a href="https://github.com/superiorkid">GitHub</a></h1>
+  </div>
   
   
   {% block content %}
@@ -17,6 +20,7 @@
   {% endblock content %}
 
   {{ bootstrap.load_js() }}
+  <script src="{{ url_for('static',filename='style.js') }}"></script>
 
 
 </body>
