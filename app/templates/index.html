@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<title>Python Flask Multiple Files Upload Example</title>
-<h2>Select file to upload</h2>
 <p>
 	{% with messages = get_flashed_messages() %}
 	  {% if messages %}
@@ -15,19 +12,81 @@
 	  {% endif %}
 	{% endwith %}
 </p>
-<form method="post" action="/" enctype="multipart/form-data">
-    <dl>
-		<p>
-			<input type="file" name="file" autocomplete="off" required>
-		</p>
-    </dl>
-    <p>
-		<input type="submit" value="Submit">
-	</p>
+
 </form>
 
-<p>
-  {{magnet}}
-</p>
+<!-- <form action="/" method="post" enctype="multipart/form-data">
+	<div class="custom-file">
+		<input type="file" name="file" class="custom-file-input" id="customFile">
+		<label class="custom-file-label" for="customFile">Choose file</label>
+	</div>
+
+	<div class="form-group">
+	<input type="submit" value="Convert">
+</div>
+</form> -->
+
+<div class="container">
+	
+
+	<div class="row mt-3 mb-2">
+		 <div class="col">
+				<h1>.torrent to magnet</h1>
+				<p id="input-group-description">easiest to convert .torrent file to magnet url</p>
+		 </div> <!-- .col -->
+	</div> <!-- .row -->
+
+	<div class="row mb-4">
+		 <div class="col">
+				<form action="/" method="post" enctype="multipart/form-data">
+					 <div class="form-group">
+
+							
+							
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<input type="submit" value="Convert">
+								</div>
+								 <div class="custom-file">
+										<input name="file" type="file" class="custom-file-input" id="input-file" aria-describedby="input-group-description">
+										<label class="custom-file-label" for="input-file">.torrent file extension</label>
+								 </div> <!-- .custom-file -->
+							</div> <!-- .input-group -->
+
+					 </div> <!-- .form-group -->              
+				</form>
+
+		 </div> <!-- .col -->
+	</div> <!-- .row -->
+
+	
+	{% if filename and magnet %}
+
+	<div class="row">
+		<div class="col">
+				<table class="table table-stripped">
+						<thead>
+								<tr>
+										<th>{{ filename }}</th>
+										<th>Action</th>
+																			
+								</tr>
+						</thead>
+						<tbody>
+								<tr>
+										<td>{{ magnet }}</td>
+										<td>Copy</td>
+								</tr>
+						</tbody>
+				</table>
+		</div> <!-- .col -->
+</div> <!-- .row -->   
+		
+	{% endif %}
+		
+	 
+	 
+	
+</div> <!-- container -->
 {% endblock content %}
   

@@ -40,7 +40,7 @@ def upload_file():
             magnet = 'magnet:?' + 'xt=urn:btih:' + b32hash + '&dn=' + metadata[b'info'][b'name'].decode() + '&tr=' + metadata[b'announce'].decode() + '&xl=' + str(metadata[b'info'][b'piece length'])
 
             flash('File successfully converted')
-            return render_template('index.html', magnet=magnet)
+            return render_template('index.html', magnet=magnet, filename=file.filename)
         else:
             flash('Allowed file types are torrent only')
             return redirect(request.url)
