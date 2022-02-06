@@ -29,16 +29,17 @@ def upload_file():
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file_dest = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(file_dest)
 
-            metadata = bencodepy.decode_from_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            metadata = bencodepy.decode_from_file(file_dest)
             subj = metadata[b'info']
             hashcontents = bencodepy.encode(subj)
             digest = hashlib.sha1(hashcontents).digest()
             b32hash = base64.b32encode(digest).decode()
             magnet = 'magnet:?' + 'xt=urn:btih:' + b32hash + '&dn=' + metadata[b'info'][b'name'].decode() + '&tr=' + metadata[b'announce'].decode() + '&xl=' + str(metadata[b'info'][b'piece length'])
 
-            flash('File successfully uploaded')
+            flash('File successfully converted')
             return render_template('index.html', magnet=magnet)
         else:
             flash('Allowed file types are torrent only')
