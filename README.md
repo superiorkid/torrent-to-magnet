@@ -1,7 +1,7 @@
 
-# Torrent to Magnet url
+# Torrent to Magnet URI
 
-Simple tool to convert `.toorent` to magnet url. this tool inspired by https://nutbread.github.io/t2m/
+Simple tool to convert `.torrent` to magnet URI. This tool is inspired by https://nutbread.github.io/t2m/
 
 ## Demo
 
